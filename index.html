@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DIJKSTRA</title>
+    <link rel="stylesheet" href="./rander.css">
+    <link rel="stylesheet" href="./soDo.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header id="header">DIJKSTRA</header>
+        <div id="body">
+            <div class="map">
+                <div id="canvas" width="700px" height="400px">
+                     <div class="triangle"></div>
+
+                </div>
+            </div>
+            <div class="total">
+                <form>
+                    <label class = "start" for="startNode">
+                        <span>Chọn điểm xuất phát:</span>
+                        <select id="startNode">
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                          <option value="D">D</option>
+                          <option value="E">E</option>
+                          <option value="K">K</option>
+                          <option value="O">O</option>
+                          <option value="J">J</option>
+                          <option value="L">L</option>
+                          <option value="P">P</option>
+                        </select>
+                    </label>
+                    <label class = "end" for="destination">
+                        <span>Chọn điểm đến:</span>
+                        <select id="destination">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="K">K</option>
+                            <option value="O">O</option>
+                            <option value="J">J</option>
+                            <option value="L">L</option>
+                            <option value="P">P</option>
+                        </select>
+                    </label>
+                    <button class="find"type="button" onclick="findShortestPath()">Tìm đường đi ngắn nhất</button>
+                    <div id="path"></div>
+                    <div id="result"></div>
+                  </form>
+
+                  <div class="deleteDinh">
+                    <span>Chọn điểm cần xóa:</span>
+                    <select name="" id="delete_select">
+                        <option value = '0' >0</option>
+                        <option value = 'A' >A</option>
+                        <option value = 'B' >B</option>
+                        <option value = 'C' >C</option>
+                        <option value = 'D' >D</option>
+                        <option value = 'E' >E</option>
+                        <option value = 'K' >K</option>
+                        <option value = 'O' >O</option>
+                        <option value = 'J' >J</option>
+                        <option value = 'L' >L</option>
+                        <option value = 'P' >P</option>
+                    </select>
+                    <button id="submit-delete" type="button" onclick= "DeleteDinhSoDo()" style="display: block; margin-top: 15px; width: 70px;">Xóa</button>
+                  </div>
+                  <table class="table">
+                    <tr>
+                        <th colspan="2">Chú Thích Các Kho Ở TP.HCM</th>
+
+                    </tr>
+                    <tr>
+                        <th>Điểm</th>
+                        <th>Vị trí</th>
+                    </tr>
+                    <tr>
+                        <td >A</td>
+                        <td class="A">Quận 1</td>
+                    </tr>
+                    <tr>
+                        <td >B</td>
+                        <td class="B">Bình Thạnh</td>
+                    </tr>
+                    <tr>
+                        <td >C</td>
+                        <td class="C">Tân Bình</td>
+                    </tr>
+                    <tr>
+                        <td >D</td>
+                        <td class="D">Quận 3</td>
+                    </tr>
+                    <tr>
+                        <td >E</td>
+                        <td class="E">Quận 10</td>
+                    </tr>
+                    <tr>
+                        <td >K</td>
+                        <td class="K">Quận 9</td>
+                    </tr>
+                    <tr>
+                        <td >P</td>
+                        <td class="P">Thủ Đức</td>
+                    </tr>
+                    <tr>
+                        <td >L</td>
+                        <td class="L">Quận 5</td>
+                    </tr>
+                    <tr>
+                        <td >J</td>
+                        <td class="J">Quận 7</td>
+                    </tr>
+                    <tr>
+                        <td >O</td>
+                        <td class="O">Phú Nhuận</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Sơ đồ DIJKSTRA -->
+    <div class="wrapperSD">
+        <div class="triangle triangle1">
+            <div class="triangle-top">
+                <div class="triangle-top-left">
+                    <div class="left-child tg1-left E A line EA " ></div>
+                </div>
+                <div class="triangle-top-right">
+                    <div class="right-child tg1-right A B line AB "></div>
+                </div>
+                
+            </div>
+            <div class="triangle-bottom" >
+                <div class="bottom-child tg1-bottom B E line BE "></div>
+            </div>
+            
+        </div>
+
+        <div class="triangle triangle2">
+            <div class="triangle-top">
+                <div class="triangle-top-left">
+                    <div class="left-child tg2-left D C line DC"></div>
+                </div>
+                <div class="triangle-top-right">
+                    <div class="right-child tg2-right B D line BD"></div>
+                </div>
+            </div>
+            <div class="triangle-bottom" >
+                <div class="bottom-child tg2-bottom B C line BC"></div>
+            </div>
+        </div>
+        
+        <div class="triangle triangle3">
+            <div class="triangle-top">
+                <div class="triangle-top-left">
+                    <div class="left-child tg3-left E D line ED"></div>
+                </div>
+                <div class="triangle-top-right">
+                    <div class="right-child tg3-right D K line DK"></div>
+                </div>
+            </div>
+            <div class="triangle-bottom" >
+                <div class="bottom-child tg3-bottom E K line EK"></div>
+            </div>
+        </div>
+
+        <div class="triangle triangle4">
+            <div class="triangle-top">
+                <div class="triangle-top-left" >
+                    <div class="left-child tg4-left C J line CJ "></div>
+                </div>
+                <div class="triangle-top-right">
+                    <div class="right-child tg4-right K J line KJ "></div>
+                </div>
+            </div>
+            <div class="triangle-bottom" >
+                <div class="bottom-child tg4-bottom C K line CK "></div>
+            </div>
+        </div>
+
+        <div class="hbh">
+            <div class="hbh-top hbh1-top C P line CP" ></div>
+            <div class="hbh-right hbh1-right P L line PL"></div>
+            <div class="hbh-bottom hbh1-bottom J L line JL"></div>
+        </div>
+        <div class="rotate">
+            <div class="hbh hbh2">
+                <div class="hbh-top hbh2-top K O line KO " ></div>
+                <div class="hbh-right hbh2-right O L line OL"></div>
+            </div>
+
+        </div>
+       
+
+        <img src="./img/SoDo0.png" alt="" id="text" class="SoDoImage">
+    </div>
+    
+</body>
+<script src="./main.js"></script>
+
+</html> 
